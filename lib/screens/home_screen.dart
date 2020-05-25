@@ -1,7 +1,9 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:ecommerce_app/data/models/ad_model.dart';
 import 'package:ecommerce_app/services/ads_service.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'cart_screen.dart';
 
@@ -25,12 +27,26 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   _getAllAds() async {
-    var ads = await _adsService.getAllAds();
-    //we have a List here because we're retrieving a List of ads (20 ads)
-    List<dynamic> results = json.decode(ads.body);
+    http.Response adsResponse = await _adsService.getAllAds();
 
-    results.forEach((result) {
-      print("${result["image"]}\n");
+    //we have a List here because we're retrieving a List of ads (20 ads)
+    if (adsResponse.statusCode == 200 && adsResponse.body != null) {
+      List<dynamic> results = json.decode(adsResponse.body);
+
+      results.forEach((result) {
+        _ads.add(
+          Ad(
+              id: result['id'],
+              title: result['title'],
+              body: result['body'],
+              image: result['image'],
+              created_at: result['created_at']),
+        );
+      });
+    }
+
+    _ads.forEach((element) {
+      print(element);
     });
   }
 
