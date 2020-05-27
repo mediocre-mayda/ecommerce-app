@@ -41,15 +41,17 @@ class _HomeScreenState extends State<HomeScreen>
       // for each result object (Map object) we iterate and create an object of type Ad (ad_model.dart) then we add all the created
       // Ad objects to the _ads List
       results.forEach((result) {
-        _ads.add(
-          Ad(
-            id: result['id'],
-            title: result['title'],
-            body: result['body'],
-            image: result['image'],
-            created_at: result['created_at'],
-          ),
-        );
+        setState(() {
+          _ads.add(
+            Ad(
+              id: result['id'],
+              title: result['title'],
+              body: result['body'],
+              image: result['image'],
+              created_at: result['created_at'],
+            ),
+          );
+        });
       });
     }
 
@@ -100,14 +102,7 @@ class _HomeScreenState extends State<HomeScreen>
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(20.0)),
-                      border:
-                          new Border.all(width: 1.0, style: BorderStyle.solid),
-                    ),
+                  Card(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -144,7 +139,6 @@ class _HomeScreenState extends State<HomeScreen>
                         )
                       ],
                     ),
-                    width: MediaQuery.of(context).size.width / 2,
                   ),
                 ],
               ),
