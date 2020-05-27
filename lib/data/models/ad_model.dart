@@ -9,7 +9,6 @@ class Ad {
 
   @override
   String toString() {
-    // TODO: implement toString
     return "{emmy  lol \n id: ${this.id},\ntitle: ${this.title},\nbody: ${this.body},\nimage: ${this.image},\ncreated_at: ${this.created_at}\n}";
   }
 }
